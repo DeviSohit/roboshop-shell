@@ -42,7 +42,7 @@ VALIDATE $? "Downloading catalogue app code into tmp directory"
 #unzip /tmp/catalogue.zip &>> $LOGFILE
 #VALIDATE $? "Extracting catalogue.zip in app directory"
 
-npm install &>> $LOGFILE
+npm install 
 VALIDATE $? "Downloading dependencies"
 
 cp catalogue.service /etc/systemd/system/catalogue.service 
