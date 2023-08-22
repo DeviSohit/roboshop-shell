@@ -42,8 +42,8 @@ VALIDATE $? "Downloading catalogue app code into tmp directory"
 #unzip /tmp/catalogue.zip &>> $LOGFILE
 #VALIDATE $? "Extracting catalogue.zip in app directory"
 
-npm install 
-VALIDATE $? "Downloading dependencies"
+#npm install 
+#VALIDATE $? "Downloading dependencies"
 
 cp catalogue.service /etc/systemd/system/catalogue.service 
 VALIDATE $? "Creating & copying System catalogue service"
