@@ -27,11 +27,11 @@ VALIDATE $? "Downloading NodeJS Repo"
 yum install nodejs -y &>> $LOGFILE
 VALIDATE $? "Installing NodeJs"
 
-useradd roboshop
-VALIDATE $? "Adding system user"
+#useradd roboshop
+#VALIDATE $? "Adding system user"
 
-mkdir /app &>> $LOGFILE
-VALIDATE $? "Creating app directory to keep catalogue app package"
+#mkdir /app &>> $LOGFILE
+#VALIDATE $? "Creating app directory to keep catalogue app package"
 
 curl -o /tmp/catalogue.zip https://roboshop-builds.s3.amazonaws.com/catalogue.zip &>> $LOGFILE
 VALIDATE $? "Downloading catalogue app code into tmp directory"
