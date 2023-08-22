@@ -27,25 +27,25 @@ VALIDATE $? "Downloading NodeJS Repo"
 yum install nodejs -y &>> $LOGFILE
 VALIDATE $? "Installing NodeJs"
 
-useradd roboshop &>> $LOGFILE
-VALIDATE $? "Adding system user"
+#useradd roboshop &>> $LOGFILE
+#VALIDATE $? "Adding system user"
 
-mkdir /app &>> $LOGFILE
-VALIDATE $? "Creating app directory to keep catalogue app package"
+#mkdir /app &>> $LOGFILE
+#VALIDATE $? "Creating app directory to keep catalogue app package"
 
 curl -o /tmp/catalogue.zip https://roboshop-builds.s3.amazonaws.com/catalogue.zip &>> $LOGFILE
 VALIDATE $? "Downloading catalogue app code into tmp directory"
 
-cd /app &>> $LOGFILE
-VALIDATE $? "Getting into app directory"
+#cd /app &>> $LOGFILE
+#VALIDATE $? "Getting into app directory"
 
-unzip /tmp/catalogue.zip &>> $LOGFILE
-VALIDATE $? "Extracting catalogue.zip in app directory"
+#unzip /tmp/catalogue.zip &>> $LOGFILE
+#VALIDATE $? "Extracting catalogue.zip in app directory"
 
-npm install &>> $LOGFILE
-VALIDATE $? "Downloading dependencies"
+#npm install &>> $LOGFILE
+#VALIDATE $? "Downloading dependencies"
 
-cp catalogue.service /etc/systemd/system/catalogue.service &>> $LOGFILE
+cp catalogue.service /etc/systemd/system/catalogue.service 
 VALIDATE $? "Creating & copying System catalogue service"
 
 systemctl daemon-reload &>> $LOGFILE
