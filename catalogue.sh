@@ -27,25 +27,25 @@ VALIDATE $? "Downloading NodeJS Repo"
 yum install nodejs -y &>> $LOGFILE
 VALIDATE $? "Installing NodeJs"
 
-#useradd roboshop
-#VALIDATE $? "Adding system user"
+useradd roboshop &>> $LOGFILE
+VALIDATE $? "Adding system user"
 
-#mkdir /app &>> $LOGFILE
-#VALIDATE $? "Creating app directory to keep catalogue app package"
+mkdir /app &>> $LOGFILE
+VALIDATE $? "Creating app directory to keep catalogue app package"
 
 curl -o /tmp/catalogue.zip https://roboshop-builds.s3.amazonaws.com/catalogue.zip &>> $LOGFILE
 VALIDATE $? "Downloading catalogue app code into tmp directory"
 
-#cd /app &>> $LOGFILE
-#VALIDATE $? "Getting into app directory"
+cd /app &>> $LOGFILE
+VALIDATE $? "Getting into app directory"
 
-#unzip /tmp/catalogue.zip &>> $LOGFILE
-#VALIDATE $? "Extracting catalogue.zip in app directory"
+unzip /tmp/catalogue.zip &>> $LOGFILE
+VALIDATE $? "Extracting catalogue.zip in app directory"
 
-#npm install 
-#VALIDATE $? "Downloading dependencies"
+npm install &>> $LOGFILE
+VALIDATE $? "Downloading dependencies"
 
-cp catalogue.service /etc/systemd/system/catalogue.service 
+cp catalogue.service /etc/systemd/system/catalogue.service &>> $LOGFILE
 VALIDATE $? "Creating & copying System catalogue service"
 
 systemctl daemon-reload &>> $LOGFILE
@@ -57,12 +57,12 @@ VALIDATE $? "Enabling catalogue"
 systemctl start catalogue &>> $LOGFILE
 VALIDATE $? "Starting catalogue"
 
-cp mongo.repo /etc/yum.repos.d/mongo.repo
+cp mongo.repo /etc/yum.repos.d/mongo.repo &>> $LOGFILE
 VALIDATE $? "Creating MongoDB repo to install MongoDB client"
 
-yum install mongodb-org-shell -y
+yum install mongodb-org-shell -y &>> $LOGFILE
 VALIDATE $? "Installing MongoDB client to load schema/catalogue products"
 
-mongo --host mongodb.devidevops.online </app/schema/catalogue.js
+mongo --host mongodb.devidevops.online </app/schema/catalogue.js &>> $LOGFILE
 VALIDATE $? "Loading schema"
 
