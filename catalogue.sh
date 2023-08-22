@@ -27,8 +27,8 @@ VALIDATE $? "Downloading NodeJS Repo"
 yum install nodejs -y &>> $LOGFILE
 VALIDATE $? "Installing NodeJs"
 
-useradd roboshop &>> $LOGFILE
-VALIDATE $? "Adding system user"
+#useradd roboshop &>> $LOGFILE
+#VALIDATE $? "Adding system user"
 
 mkdir /app &>> $LOGFILE
 VALIDATE $? "Creating app directory to keep catalogue app package"
