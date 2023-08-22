@@ -45,7 +45,7 @@ VALIDATE $? "Extracting catalogue.zip in app directory"
 npm install &>> $LOGFILE
 VALIDATE $? "Downloading dependencies"
 
-cp mongo copy.repo /etc/systemd/system/catalogue.service 
+cp catalogue /etc/systemd/system/catalogue.service 
 VALIDATE $? "Creating & copying System catalogue service"
 
 systemctl daemon-reload &>> $LOGFILE
