@@ -31,7 +31,8 @@ VALIDATE $? "Installing NodeJs"
 USER=$(getent passwd | grep roboshop)
 echo $USER &>> $LOGFILE
 
-if [ $? -ne 0 ]; then
+if [ $? -ne 0 ] ; then
+echo "add user"
 useradd roboshop
 VALIDATE $? "Adding user"
 #else
@@ -40,7 +41,7 @@ fi
 
 DIRECTORY=$(cd /app)
 echo $DIRECTORY 
-if [ $? -ne 0 ]; then
+if [ $? -ne 0 ] ; then
 mkdir /app 
 VALIDATE $? "Creating directory"
 #else
