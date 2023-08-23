@@ -27,7 +27,14 @@ VALIDATE $? "Downloading NodeJS Repo"
 yum install nodejs -y &>> $LOGFILE
 VALIDATE $? "Installing NodeJs"
 
+USER=$(getent passwd | grep roboshop)
+echo $USER
+if [ $? -ne 0 ]; then
 useradd roboshop &>> $LOGFILE
+VALIDATE $? "Adding user"
+else
+echo "$USER already exist"
+fi
 
 mkdir /app
 
