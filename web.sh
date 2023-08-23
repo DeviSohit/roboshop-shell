@@ -25,8 +25,27 @@ fi
 yum install nginx -y &>> $LOGFILE
 VALIDATE $? "Installing nginx"
 
-systemctl enable nginx
+systemctl enable nginx &>> $LOGFILE
 VALIDATE $? "Enabling nginx"
 
-systemctl start nginx
+systemctl start nginx &>> $LOGFILE
 VALIDATE $? "Starting nginx"
+
+rm -rf /usr/share/nginx/html/* &>> $LOGFILE
+VALIDATE $? "Removing default nginx website"
+
+curl -o /tmp/web.zip https://roboshop-builds.s3.amazonaws.com/web.zip &>> $LOGFILE
+VALIDATE $? "Downloading web Artifact"
+
+cd /usr/share/nginx/html &>> $LOGFILE
+VALIDATE $? "Going to the /usr/share/nginx/html path"
+
+unzip /tmp/web.zip &>> $LOGFILE
+VALIDATE $? "Extracting web Artifact"
+
+cp /home/centos/roboshop-shell/roboshop.conf /etc/nginx/default.d/roboshop.conf &>> $LOGFILE
+VALIDATE $? "Copying Reverse proxy configuration"
+
+systemctl restart nginx &>> $LOGFILE
+VALIDATE $? "Restarting nginx"
+
