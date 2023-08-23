@@ -48,10 +48,10 @@ fi
 curl -o /tmp/catalogue.zip https://roboshop-builds.s3.amazonaws.com/catalogue.zip &>> $LOGFILE
 VALIDATE $? "Downloading catalogue app code into tmp directory"
 
-cd /app &>> $LOGFILE
+cd /app 
 VALIDATE $? "Getting into app directory"
 
-unzip /tmp/catalogue.zip &>> $LOGFILE
+unzip /tmp/catalogue.zip
 VALIDATE $? "Extracting catalogue.zip in app directory"
 
 npm install &>> $LOGFILE
