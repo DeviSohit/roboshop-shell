@@ -27,9 +27,8 @@ VALIDATE $? "Downloading NodeJS Repo"
 yum install nodejs -y &>> $LOGFILE
 VALIDATE $? "Installing NodeJs"
 
-$(id roboshop) &>> $LOGFILE
+$(id roboshop)
 
-fi
 $(cd /app) &>> $LOGFILE
 if [ $? -ne 0 ]; then
     echo "No directory found..please make /app directory"
