@@ -35,7 +35,7 @@ if [ $? -ne 0 ]; then
 useradd roboshop
 VALIDATE $? "Adding user"
 else
-echo -e "$Y user already exist $N"
+#echo -e "$Y user already exist $N"
 fi
 
 DIRECTORY=$(cd /app)
@@ -44,7 +44,7 @@ if [ $? -ne 0 ]; then
 mkdir /app 
 VALIDATE $? "Creating directory"
 else
-echo -e "$Y File already exist $N"
+#echo -e "$Y File already exist $N"
 fi
 
 curl -L -o /tmp/cart.zip https://roboshop-builds.s3.amazonaws.com/cart.zip &>> $LOGFILE
