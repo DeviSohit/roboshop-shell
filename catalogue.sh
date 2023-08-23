@@ -36,8 +36,14 @@ else
 echo -e "$Y user already exist $N"
 fi
 
-mkdir /app
-
+DIRECTORY=$(cd /app)
+echo $DIRECTORY &>> $LOGFILE
+if [ $? -ne 0 ]; then
+mkdir /app &>> $LOGFILE
+VALIDATE $? "Creating directory"
+else
+echo -e "$Y File already exist $N"
+fi
 
 curl -o /tmp/catalogue.zip https://roboshop-builds.s3.amazonaws.com/catalogue.zip &>> $LOGFILE
 VALIDATE $? "Downloading catalogue app code into tmp directory"
