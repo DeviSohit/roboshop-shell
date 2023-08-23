@@ -1,81 +1,100 @@
 #!/bin/bash
-LOGFILE_DIR=/tmp
+
 DATE=$(date +%F)
+LOGSDIR=/tmp
+# /home/centos/shellscript-logs/script-name-date.log
 SCRIPT_NAME=$0
-LOGFILE=$LOGFILE_DIR/$SCRIPT_NAME-$DATE.log
+LOGFILE=$LOGSDIR/$0-$DATE.log
+USERID=$(id -u)
 R="\e[31m"
 G="\e[32m"
 N="\e[0m"
 Y="\e[33m"
-VALIDATE(){
-    if [ $1 -ne 0 ]; then
-        echo -e "$2.....$R FAILURE $N"
-        exit 1
-    else
-        echo -e "$2.....$G SUCCESS $N"
-    fi
- }
 
- USERID=$(id -u)
- if [ $USERID -ne 0 ]; then
-    echo -e "$R ERROR:Please run this script with root access $N"
+if [ $USERID -ne 0 ];
+then
+    echo -e "$R ERROR:: Please run this script with root access $N"
     exit 1
 fi
 
-curl -sL https://rpm.nodesource.com/setup_lts.x | bash &>> $LOGFILE
-VALIDATE $? "Downloading NodeJS Repo"
+VALIDATE(){
+    if [ $1 -ne 0 ];
+    then
+        echo -e "$2 ... $R FAILURE $N"
+        exit 1
+    else
+        echo -e "$2 ... $G SUCCESS $N"
+    fi
+}
 
-yum install nodejs -y &>> $LOGFILE
-VALIDATE $? "Installing NodeJs"
+curl -sL https://rpm.nodesource.com/setup_lts.x | bash &>>$LOGFILE
 
-USER=$(getent passwd | grep roboshop)
-echo $USER &>> $LOGFILE
+VALIDATE $? "Setting up NPM Source"
+
+yum install nodejs -y &>>$LOGFILE
+
+VALIDATE $? "Installing NodeJS"
+
+#once the user is created, if you run this script 2nd time
+# this command will defnitely fail
+# IMPROVEMENT: first check the user already exist or not, if not exist then create
+USER=$(id roboshop)
 if [ $? -ne 0 ]; then
-useradd roboshop &>> $LOGFILE
-VALIDATE $? "Adding user"
+    echo "add user"
+    useradd roboshop &>>$LOGFILE
 else
-echo -e "$Y user already exist $N"
+    echo "user already exist"
 fi
-
+#write a condition to check directory already exist or not
 DIRECTORY=$(cd /app)
-echo $DIRECTORY &>> $LOGFILE
 if [ $? -ne 0 ]; then
-mkdir /app &>> $LOGFILE
-VALIDATE $? "Creating directory"
+    echo "create directory"
+    mkdir /app &>>$LOGFILE
 else
-echo -e "$Y File already exist $N"
+    echo "file already exist"
 fi
 
-curl -o /tmp/catalogue.zip https://roboshop-builds.s3.amazonaws.com/catalogue.zip &>> $LOGFILE
-VALIDATE $? "Downloading catalogue app code into tmp directory"
+curl -o /tmp/catalogue.zip https://roboshop-builds.s3.amazonaws.com/catalogue.zip &>>$LOGFILE
 
-cd /app &>> $LOGFILE
-VALIDATE $? "Getting into app directory"
+VALIDATE $? "downloading catalogue artifact"
 
-unzip /tmp/catalogue.zip
-VALIDATE $? "Extracting catalogue.zip in app directory"
+cd /app &>>$LOGFILE
 
-npm install &>> $LOGFILE
-VALIDATE $? "Downloading dependencies"
+VALIDATE $? "Moving into app directory"
 
-cp /home/centos/roboshop-shell/catalogue.service /etc/systemd/system/catalogue.service &>> $LOGFILE
-VALIDATE $? "Creating & copying System catalogue service"
+unzip /tmp/catalogue.zip &>>$LOGFILE
 
-systemctl daemon-reload &>> $LOGFILE
-VALIDATE $? "Loading the service"
+VALIDATE $? "unzipping catalogue"
 
-systemctl enable catalogue &>> $LOGFILE
-VALIDATE $? "Enabling catalogue"
+npm install &>>$LOGFILE
 
-systemctl start catalogue &>> $LOGFILE
-VALIDATE $? "Starting catalogue"
+VALIDATE $? "Installing dependencies"
 
-cp /home/centos/roboshop-shell/mongo.repo /etc/yum.repos.d/mongo.repo &>> $LOGFILE
-VALIDATE $? "Creating MongoDB repo to install MongoDB client"
+# give full path of catalogue.service because we are inside /app
+cp /home/centos/roboshop-shell/catalogue.service /etc/systemd/system/catalogue.service &>>$LOGFILE
 
-yum install mongodb-org-shell -y &>> $LOGFILE
-VALIDATE $? "Installing MongoDB client to load schema/catalogue products"
+VALIDATE $? "copying catalogue.service"
 
-mongo --host mongodb.devidevops.online </app/schema/catalogue.js &>> $LOGFILE
-VALIDATE $? "Loading schema"
+systemctl daemon-reload &>>$LOGFILE
 
+VALIDATE $? "daemon reload"
+
+systemctl enable catalogue &>>$LOGFILE
+
+VALIDATE $? "Enabling Catalogue"
+
+systemctl start catalogue &>>$LOGFILE
+
+VALIDATE $? "Starting Catalogue"
+
+cp /home/centos/roboshop-shell/mongo.repo /etc/yum.repos.d/mongo.repo &>>$LOGFILE
+
+VALIDATE $? "Copying mongo repo"
+
+yum install mongodb-org-shell -y &>>$LOGFILE
+
+VALIDATE $? "Installing mongo client"
+
+mongo --host mongodb.devidevops.online </app/schema/catalogue.js &>>$LOGFILE
+
+VALIDATE $? "loading catalogue data into mongodb"
