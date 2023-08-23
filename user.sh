@@ -30,21 +30,22 @@ VALIDATE $? "Installing NodeJs"
 
 USER=$(getent passwd | grep roboshop)
 echo $USER &>> $LOGFILE
-if [ $? -ne 0 ]; then
-useradd roboshop &>> $LOGFILE
+
+#if [ $? -ne 0 ]; then
+useradd roboshop
 VALIDATE $? "Adding user"
-else
-echo -e "$Y user already exist $N"
-fi
+#else
+#echo -e "$Y user already exist $N"
+#fi
 
 DIRECTORY=$(cd /app)
-echo $DIRECTORY &>> $LOGFILE
-if [ $? -ne 0 ]; then
-mkdir /app &>> $LOGFILE
+echo $DIRECTORY 
+#if [ $? -ne 0 ] ; then
+mkdir /app 
 VALIDATE $? "Creating directory"
-else
-echo -e "$Y File already exist $N"
-fi
+#else
+#echo -e "$Y File already exist $N"
+#fi
 
 curl -L -o /tmp/user.zip https://roboshop-builds.s3.amazonaws.com/user.zip &>> $LOGFILE
 VALIDATE $? "Downloading user app code into tmp directory"
