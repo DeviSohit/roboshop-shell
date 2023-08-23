@@ -29,7 +29,8 @@ yum install nodejs -y &>> $LOGFILE
 VALIDATE $? "Installing NodeJs"
 
 USER=$(getent passwd | grep roboshop)
-echo $USER 
+echo $USER &>> $LOGFILE
+
 if [ $? -ne 0 ]; then
 useradd roboshop
 VALIDATE $? "Adding user"
