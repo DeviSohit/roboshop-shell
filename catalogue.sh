@@ -27,16 +27,15 @@ VALIDATE $? "Downloading NodeJS Repo"
 yum install nodejs -y &>> $LOGFILE
 VALIDATE $? "Installing NodeJs"
 
-SYSTEMUSER=$(id roboshop)
-echo "$SYSTEMUSER"
+$(id roboshop)
 if [ $? -ne 0 ]; then
-    echo "No $SYSTEMUSER system user added...please add systemuser roboshop"
+    echo "No system user added...please add systemuser roboshop"
     useradd roboshop &>> $LOGFILE
     else
-    echo -e "$Y $SYSTEMUSER user already added $N"
+    echo -e "$Y user already added $N"
 fi
 DIRECTORY=$(cd /app)
-echo "$DIRECTORY"
+#echo "$DIRECTORY"
 if [ $? -ne 0 ]; then
     echo "No $DIRECTORY directory found..please make /app directory"
     mkdir /app 
