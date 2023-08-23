@@ -27,23 +27,10 @@ VALIDATE $? "Downloading NodeJS Repo"
 yum install nodejs -y &>> $LOGFILE
 VALIDATE $? "Installing NodeJs"
 
-$(id roboshop)
-if [ $? -ne 0 ]; then
-    echo "add system user"
-    useradd roboshop
-    echo -e "$G system user added successfully $N"
-else
-    echo -e "$Y system user already exist $N"
-fi
+useradd roboshop &>> $LOGFILE
 
-$(cd /app) &>> $LOGFILE
-if [ $? -ne 0 ]; then
-    echo "No directory found..please make /app directory"
-    mkdir /app 
-    VALIDATE $? "user added successfully"
-    else
-    echo -e "$Y /app directory already exist $N"
-fi
+mkdir /app
+
 
 curl -o /tmp/catalogue.zip https://roboshop-builds.s3.amazonaws.com/catalogue.zip &>> $LOGFILE
 VALIDATE $? "Downloading catalogue app code into tmp directory"
