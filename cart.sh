@@ -34,7 +34,7 @@ echo $USER &>> $LOGFILE
 if [ $? -ne 0 ]; then
 useradd roboshop
 VALIDATE $? "Adding user"
-else
+#else
 #echo -e "$Y user already exist $N"
 fi
 
@@ -43,7 +43,7 @@ echo $DIRECTORY
 if [ $? -ne 0 ]; then
 mkdir /app 
 VALIDATE $? "Creating directory"
-else
+#else
 #echo -e "$Y File already exist $N"
 fi
 
