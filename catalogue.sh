@@ -44,7 +44,7 @@ VALIDATE $? "Extracting catalogue.zip in app directory"
 npm install &>> $LOGFILE
 VALIDATE $? "Downloading dependencies"
 
-cp /home/centos/catalogue.service /etc/systemd/system/catalogue.service &>> $LOGFILE
+cp /home/centos/roboshop-shell/catalogue.service /etc/systemd/system/catalogue.service &>> $LOGFILE
 VALIDATE $? "Creating & copying System catalogue service"
 
 systemctl daemon-reload &>> $LOGFILE
