@@ -45,7 +45,7 @@ mkdir /app
 VALIDATE $? "Creating directory"
 #else
 #echo -e "$Y File already exist $N"
-fi
+#fi
 
 curl -L -o /tmp/cart.zip https://roboshop-builds.s3.amazonaws.com/cart.zip &>> $LOGFILE
 VALIDATE $? "Downloading cart Artifact"
