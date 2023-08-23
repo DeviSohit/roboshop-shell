@@ -30,18 +30,18 @@ VALIDATE $? "Installing NodeJs"
 SYSTEMUSER=$(id roboshop)
 echo "$SYSTEMUSER"
 if [ $? -ne 0 ]; then
-    echo "No system user added...please add systemuser roboshop"
-    useradd roboshop
+    echo "No $SYSTEMUSER system user added...please add systemuser roboshop"
+    useradd roboshop &>> $LOGFILE
     else
-    echo -e "$Y roboshop user already added $N"
+    echo -e "$Y $SYSTEMUSER user already added $N"
 fi
 DIRECTORY=$(cd /app)
 echo "$DIRECTORY"
 if [ $? -ne 0 ]; then
-    echo "No /app directory found..please make /app directory"
-    mkdir /app &>> $LOGFILE
+    echo "No $DIRECTORY directory found..please make /app directory"
+    mkdir /app 
     else
-    echo -e "$Y /app directory already existed $N"
+    echo -e "$Y $DIRECTORY /app directory already existed $N"
 fi
 
 curl -o /tmp/catalogue.zip https://roboshop-builds.s3.amazonaws.com/catalogue.zip &>> $LOGFILE
