@@ -39,6 +39,7 @@ USER=$(id roboshop) &>>$LOGFILE
 if [ $? -ne 0 ]; then
     echo "add user"
     useradd roboshop &>>$LOGFILE
+    VALIDATE $? "Adding user"
 else
     echo "user already exist"
 fi
@@ -47,6 +48,7 @@ DIRECTORY=$(cd /app) &>>$LOGFILE
 if [ $? -ne 0 ]; then
     echo "create directory"
     mkdir /app &>>$LOGFILE
+    VALIDATE $? "Creating directory"
 else
     echo "file already exist"
 fi
