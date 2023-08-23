@@ -53,7 +53,7 @@ VALIDATE $? "Downloading cart Artifact"
 cd /app &>> $LOGFILE
 VALIDATE $? "Getting into app directory"
 
-unzip /tmp/cart.zip &>> $LOGFILE
+unzip /tmp/cart.zip 
 VALIDATE $? "Extracting cart Artifact"
 
 npm install &>> $LOGFILE
