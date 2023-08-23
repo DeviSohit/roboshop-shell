@@ -38,7 +38,7 @@ VALIDATE $? "Installing NodeJS"
 #once the user is created, if you run this script 2nd time
 # this command will defnitely fail
 # IMPROVEMENT: first check the user already exist or not, if not exist then create
-USER=$(id roboshop)
+USER=$(id roboshop) &>>$LOGFILE
 if [ $? -ne 0 ]; then
     echo "add user"
     useradd roboshop &>>$LOGFILE
@@ -46,7 +46,7 @@ else
     echo "user already exist"
 fi
 #write a condition to check directory already exist or not
-DIRECTORY=$(cd /app)
+DIRECTORY=$(cd /app) &>>$LOGFILE
 if [ $? -ne 0 ]; then
     echo "create directory"
     mkdir /app &>>$LOGFILE
@@ -62,7 +62,7 @@ cd /app &>>$LOGFILE
 
 VALIDATE $? "Moving into app directory"
 
-unzip /tmp/catalogue.zip &>>$LOGFILE
+unzip /tmp/catalogue.zip
 
 VALIDATE $? "unzipping catalogue"
 
