@@ -1,3 +1,4 @@
+#!/bin/bash
 LOGFILE_DIR=/tmp
 DATE=$(date +%F)
 SCRIPT_NAME=$0
