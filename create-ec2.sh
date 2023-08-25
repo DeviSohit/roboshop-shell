@@ -3,8 +3,8 @@
 NAMES=("mongodb" "redis" "mysql" "rabbitmq" "catalogue" "user" "cart" "shipping" "payment" "dispatch" "web")
 INSTANCE_TYPE=""
 IMAGE_ID=ami-03265a0778a880afb
-SECURITY_GROUP_ID=sg-0189d4870cc65fd55
-DOMAIN_NAME=joindevops.online
+SECURITY_GROUP_ID=sg-0d784987bc4c86087
+DOMAIN_NAME=devidevops.online
 
 # if mysql or mongodb instance_type should be t3.medium , for all others it is t2.micro
 
