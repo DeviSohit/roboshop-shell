@@ -1,5 +1,5 @@
 #!/bin/bash
-
+#give your instance OS_image id in AMI's, Security id in security groups and give your domain name
 NAMES=("mongodb" "redis" "mysql" "rabbitmq" "catalogue" "user" "cart" "shipping" "payment" "dispatch" "web")
 INSTANCE_TYPE=""
 IMAGE_ID=ami-03265a0778a880afb
@@ -19,8 +19,8 @@ do
     echo "creating $i instance"
     IP_ADDRESS=$(aws ec2 run-instances --image-id $IMAGE_ID  --instance-type $INSTANCE_TYPE --security-group-ids $SECURITY_GROUP_ID --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=$i}]" | jq -r '.Instances[0].PrivateIpAddress')
     echo "created $i instance: $IP_ADDRESS"
-
-    aws route53 change-resource-record-sets --hosted-zone-id Z098285010FMU6PDV8O9P --change-batch '
+    #below give your hosted-zone id in your aws account
+    aws route53 change-resource-record-sets --hosted-zone-id Z0004719GP56M4P55PNZ --change-batch '
     {
             "Changes": [{
             "Action": "CREATE",
