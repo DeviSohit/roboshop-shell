@@ -67,10 +67,10 @@ systemctl daemon-reload &>>$LOGFILE
 
 VALIDATE $? "daemon-reload"
 
-systemctl enable dispatch 
+systemctl enable dispatch &>>$LOGFILE
 
 VALIDATE $? "Enabling dispatch"
 
-systemctl start dispatch
+systemctl start dispatch &>>$LOGFILE
 
 VALIDATE $? "Starting dispatch"
